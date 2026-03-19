@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><Policy ID="dbce7b83-e79e-4e5c-953e-5ffc324f85ea" Name="ThreatLockerChecker" Description="Q2hlY2tzIGlmIHRoZSBUaHJlYXRMb2NrZXIgU2VydmljZSBJcyBSdW5uaW5n" Version="2.19.0.1" MinRequiredVersion="2.19.0.1" RemoteCategory="0" ExecutionType="Local" MinimumPSVersionRequired="3.0">
+  <Object ID="{c49a74af-daaf-4edd-8375-2b7afb75ff93}" Type="{B6FA6D8B-EEAA-47A6-8463-7F9A4F5BBB6E}" Data="&lt;xml&gt;&lt;Parameters&gt;&lt;Parameter ParameterName=&quot;Task_Check&quot; Label=&quot;Uninstall = 0 Install = 1&quot; ParameterType=&quot;number&quot; Value=&quot;1&quot; /&gt;&lt;/Parameters&gt;&lt;GlobalVariables&gt;&lt;Parameter ParameterName=&quot;Application&quot; Label=&quot;Application&quot; ParameterType=&quot;string&quot; Value=&quot;Threatlocker&quot; /&gt;&lt;/GlobalVariables&gt;&lt;/xml&gt;" />
+  <LinkManager xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/PolicyExecutor">
+    <hashset xmlns:d2p1="http://schemas.datacontract.org/2004/07/System" />
+  </LinkManager>
+  <Diagnostics OriginalVersion="2.98.2.2" />
+  <Activity mc:Ignorable="sads sap" x:Class="Policy Builder" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:p="clr-namespace:PolicyExecutor;assembly=PolicyExecutionEngine" xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <x:Members>
+      <x:Property Name="PolicyGUID" Type="InArgument(x:String)" />
+    </x:Members>
+    <sap:VirtualizedContainerService.HintSize>381,707</sap:VirtualizedContainerService.HintSize>
+    <mva:VisualBasic.Settings>Assembly references and imported namespaces serialized as XML namespaces</mva:VisualBasic.Settings>
+    <p:PolicySequence DisplayName="Policy Builder" sap:VirtualizedContainerService.HintSize="341,667" MinRequiredVersion="2.19.0.1" mva:VisualBasic.Settings="Assembly references and imported namespaces serialized as XML namespaces">
+      <p:PolicySequence.Activities>
+        <p:RegistryKeyExists BaseKey_ItemProp="{x:Null}" Key_ItemProp="{x:Null}" AssemblyName="PolicyExecutionEngine, Version=2.98.1.2, Culture=neutral, PublicKeyToken=null" BaseKey="HKLM" BaseKey_DisplayArg="HKLM" BaseKey_Item="{x:Null}" Conditional="[RegistryKeyExists_Conditional]" DisplayName="Registry Key Exists" sap:VirtualizedContainerService.HintSize="305,81" Key="SOFTWARE\ThreatLocker" Key_DisplayArg="SOFTWARE\ThreatLocker" Key_Item="{x:Null}" MinRequiredVersion="2.10.0.19" Moniker="fc9a4eed-91e5-4657-bbbe-cbe70268c488" Result="[RegistryKeyExists_Result]" ResultString="[RegistryKeyExists_ResultString]" RunAsCurrentLoggedOnUser="False" ScriptExecutionMethod="ExecuteDebug" TypeName="RegistryKeyExists" m_bTextLinkChange="False">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </p:RegistryKeyExists>
+        <p:GetEnvironmentVariable Type_Item="{x:Null}" Type_ItemProp="{x:Null}" Variable_Item="{x:Null}" Variable_ItemProp="{x:Null}" AssemblyName="PolicyExecutionEngine, Version=2.98.2.2, Culture=neutral, PublicKeyToken=null" DisplayName="Get Environment Variable" sap:VirtualizedContainerService.HintSize="305,81" MinRequiredVersion="2.10.0.19" Moniker="a5449ac7-81e3-4af6-adb3-f1cb40217582" Result="[GetEnvironmentVariable_Result]" ResultString="[GetEnvironmentVariable_ResultString]" RunAsCurrentLoggedOnUser="False" ScriptExecutionMethod="ExecuteDebug" Type="Machine" TypeName="GetEnvironmentVariable" Type_DisplayArg="Machine" Value="[GetEnvironmentVariable_Value]" Variable="[Application]" Variable_DisplayArg="Global Variables.Application" m_bTextLinkChange="False">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </p:GetEnvironmentVariable>
+        <p:IfElse CaseSensitive_ItemProp="{x:Null}" Condition_ItemProp="{x:Null}" Value_Item="{x:Null}" Value_ItemProp="{x:Null}" Variable_ItemProp="{x:Null}" AssemblyName="PolicyExecutionEngine, Version=2.98.2.2, Culture=neutral, PublicKeyToken=null" CaseSensitive="False" CaseSensitive_DisplayArg="false" CaseSensitive_Item="{x:Null}" Condition="equals" Condition_DisplayArg="equals" Condition_Item="{x:Null}" DisplayName="Set Enviroment Variable" sap:VirtualizedContainerService.HintSize="305,81" MinRequiredVersion="2.19.0.1" Moniker="b4603671-9004-4eff-81aa-20a36c54aa36" Result="[IfElse_Result]" ResultString="[IfElse_ResultString]" RunAsCurrentLoggedOnUser="False" ScriptExecutionMethod="None" TypeName="IfElse" Value_DisplayArg="True" Value_Type="x:String" Variable="[RegistryKeyExists_Conditional]" Variable_DisplayArg="Registry Key Exists.Conditional" Variable_Item="{x:Null}" Variable_Type="x:String" m_bTextLinkChange="False">
+          <p:IfElse.ElseOption>
+            <p:SequenceActivity DisplayName="Else" sap:VirtualizedContainerService.HintSize="172,81" Name="SequenceActivity">
+              <p:SequenceActivity.Activities>
+                <p:IfObject CaseSensitive_Item="{x:Null}" CaseSensitive_ItemProp="{x:Null}" Condition_Item="{x:Null}" Condition_ItemProp="{x:Null}" Value_Item="{x:Null}" Value_ItemProp="{x:Null}" Variable_Item="{x:Null}" Variable_ItemProp="{x:Null}" VerboseOutput_Item="{x:Null}" VerboseOutput_ItemProp="{x:Null}" AssemblyName="PolicyExecutionEngine, Version=2.98.2.2, Culture=neutral, PublicKeyToken=null" CaseSensitive="False" CaseSensitive_DisplayArg="false" Condition="does not equal" Condition_DisplayArg="does not equal" DisplayName="If" sap:VirtualizedContainerService.HintSize="172,81" MinRequiredVersion="2.19.0.1" Moniker="9a2d247c-c06e-4613-a7bc-c9b27012d833" Result="[IfObject_Result_2]" ResultString="[IfObject_ResultString_2]" RunAsCurrentLoggedOnUser="False" ScriptExecutionMethod="None" TypeName="IfObject" Value_DisplayArg="1" Value_Type="x:String" Variable="[GetEnvironmentVariable_Value]" Variable_DisplayArg="Get Environment Variable.Value" Variable_Type="x:String" VerboseOutput="False" VerboseOutput_DisplayArg="" m_bTextLinkChange="False">
+                  <p:IfObject.IfOption>
+                    <p:SequenceActivity DisplayName="Then" sap:VirtualizedContainerService.HintSize="403,346" Name="SequenceActivity">
+                      <p:SequenceActivity.Activities>
+                        <p:SetEnvironmentVariable Type_ItemProp="{x:Null}" UserName_DisplayArg="{x:Null}" UserName_ItemProp="{x:Null}" Value_ItemProp="{x:Null}" Variable_Item="{x:Null}" Variable_ItemProp="{x:Null}" AssemblyName="PolicyExecutionEngine, Version=2.98.1.2, Culture=neutral, PublicKeyToken=null" DisplayName="Set Environment Variable" sap:VirtualizedContainerService.HintSize="365,196" MinRequiredVersion="2.10.0.19" Moniker="d80e5e6e-e258-47bc-b921-311d49f714f0" Result="[SetEnvironmentVariable_Result]" ResultString="[SetEnvironmentVariable_ResultString]" RunAsCurrentLoggedOnUser="False" ScriptExecutionMethod="ExecuteDebug" Type="Machine" TypeName="SetEnvironmentVariable" Type_DisplayArg="Machine" Type_Item="{x:Null}" UserName="{x:Null}" UserName_Item="{x:Null}" Value="1" Value_DisplayArg="1" Value_Item="{x:Null}" Variable="[Application]" Variable_DisplayArg="Global Variables.Application" m_bTextLinkChange="False" />
+                      </p:SequenceActivity.Activities>
+                      <p:SequenceActivity.Variables>
+                        <Variable x:TypeArguments="x:Double" Name="SetEnvironmentVariable_Result" />
+                        <Variable x:TypeArguments="x:String" Name="SetEnvironmentVariable_ResultString" />
+                      </p:SequenceActivity.Variables>
+                    </p:SequenceActivity>
+                  </p:IfObject.IfOption>
+                  <p:IfObject.Value>
+                    <InArgument x:TypeArguments="x:Object">
+                      <p:ObjectLiteral Value="1" />
+                    </InArgument>
+                  </p:IfObject.Value>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </p:IfObject>
+              </p:SequenceActivity.Activities>
+              <p:SequenceActivity.Variables>
+                <Variable x:TypeArguments="x:Double" Name="IfObject_Result_2" />
+                <Variable x:TypeArguments="x:String" Name="IfObject_ResultString_2" />
+              </p:SequenceActivity.Variables>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </p:SequenceActivity>
+          </p:IfElse.ElseOption>
+          <p:IfElse.IfOption>
+            <p:SequenceActivity DisplayName="Then" sap:VirtualizedContainerService.HintSize="172,81" Name="SequenceActivity">
+              <p:SequenceActivity.Activities>
+                <p:IfObject CaseSensitive_Item="{x:Null}" CaseSensitive_ItemProp="{x:Null}" Condition_Item="{x:Null}" Condition_ItemProp="{x:Null}" Value_Item="{x:Null}" Value_ItemProp="{x:Null}" Variable_Item="{x:Null}" Variable_ItemProp="{x:Null}" VerboseOutput_Item="{x:Null}" VerboseOutput_ItemProp="{x:Null}" AssemblyName="PolicyExecutionEngine, Version=2.98.2.2, Culture=neutral, PublicKeyToken=null" CaseSensitive="False" CaseSensitive_DisplayArg="false" Condition="does not equal" Condition_DisplayArg="does not equal" DisplayName="If" sap:VirtualizedContainerService.HintSize="172,81" MinRequiredVersion="2.19.0.1" Moniker="08a4c8ad-2319-4c8f-ad2f-b4f22f5ecd03" Result="[IfObject_Result_3]" ResultString="[IfObject_ResultString_3]" RunAsCurrentLoggedOnUser="False" ScriptExecutionMethod="None" TypeName="IfObject" Value_DisplayArg="0" Value_Type="x:String" Variable="[GetEnvironmentVariable_Value]" Variable_DisplayArg="Get Environment Variable.Value" Variable_Type="x:String" VerboseOutput="False" VerboseOutput_DisplayArg="" m_bTextLinkChange="False">
+                  <p:IfObject.IfOption>
+                    <p:SequenceActivity DisplayName="Then" sap:VirtualizedContainerService.HintSize="403,346" Name="SequenceActivity">
+                      <p:SequenceActivity.Activities>
+                        <p:SetEnvironmentVariable Type_ItemProp="{x:Null}" UserName_DisplayArg="{x:Null}" UserName_ItemProp="{x:Null}" Value_ItemProp="{x:Null}" Variable_Item="{x:Null}" Variable_ItemProp="{x:Null}" AssemblyName="PolicyExecutionEngine, Version=2.98.2.2, Culture=neutral, PublicKeyToken=null" DisplayName="Set Environment Variable" sap:VirtualizedContainerService.HintSize="365,196" MinRequiredVersion="2.10.0.19" Moniker="72ee86b9-3e66-44cf-b355-0ddee0823a2b" Result="[SetEnvironmentVariable_Result_1]" ResultString="[SetEnvironmentVariable_ResultString_1]" RunAsCurrentLoggedOnUser="False" ScriptExecutionMethod="ExecuteDebug" Type="Machine" TypeName="SetEnvironmentVariable" Type_DisplayArg="Machine" Type_Item="{x:Null}" UserName="{x:Null}" UserName_Item="{x:Null}" Value="0" Value_DisplayArg="0" Value_Item="{x:Null}" Variable="[Application]" Variable_DisplayArg="Global Variables.Application" m_bTextLinkChange="False" />
+                      </p:SequenceActivity.Activities>
+                      <p:SequenceActivity.Variables>
+                        <Variable x:TypeArguments="x:Double" Name="SetEnvironmentVariable_Result_1" />
+                        <Variable x:TypeArguments="x:String" Name="SetEnvironmentVariable_ResultString_1" />
+                      </p:SequenceActivity.Variables>
+                    </p:SequenceActivity>
+                  </p:IfObject.IfOption>
+                  <p:IfObject.Value>
+                    <InArgument x:TypeArguments="x:Object">
+                      <p:ObjectLiteral Value="0" />
+                    </InArgument>
+                  </p:IfObject.Value>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </p:IfObject>
+              </p:SequenceActivity.Activities>
+              <p:SequenceActivity.Variables>
+                <Variable x:TypeArguments="x:Double" Name="IfObject_Result_3" />
+                <Variable x:TypeArguments="x:String" Name="IfObject_ResultString_3" />
+              </p:SequenceActivity.Variables>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </p:SequenceActivity>
+          </p:IfElse.IfOption>
+          <p:IfElse.Value>
+            <InArgument x:TypeArguments="x:Object">
+              <p:ObjectLiteral Value="True" />
+            </InArgument>
+          </p:IfElse.Value>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </p:IfElse>
+        <p:SwitchObject AllowDefault_ItemProp="{x:Null}" Variable_ItemProp="{x:Null}" AllowDefault="False" AllowDefault_DisplayArg="true" AllowDefault_Item="{x:Null}" AssemblyName="PolicyExecutionEngine, Version=2.98.2.2, Culture=neutral, PublicKeyToken=null" DisplayName="Output for Install vs Uninstall" sap:VirtualizedContainerService.HintSize="305,81" MinRequiredVersion="2.10.0.19" Moniker="53eb8b22-6605-4566-9341-008136672db1" Result="[SwitchObject_Result]" ResultString="[SwitchObject_ResultString]" RunAsCurrentLoggedOnUser="False" ScriptExecutionMethod="None" TypeName="SwitchObject" Variable="[Task_Check]" Variable_DisplayArg="Input Parameters.Uninstall = 0 Install = 1" Variable_Item="{x:Null}" Variable_Type="x:Double" m_bTextLinkChange="False">
+          <p:SwitchObject.CaseSequence>
+            <p:CaseSequenceActivity DisplayName="" sap:VirtualizedContainerService.HintSize="238,238" Name="CaseSequenceActivity">
+              <p:CaseSequenceActivity.Activities>
+                <p:CaseObject Value_ItemProp="{x:Null}" AssemblyName="PolicyExecutionEngine, Version=2.98.2.2, Culture=neutral, PublicKeyToken=null" DisplayName="Check Uninstalled" sap:VirtualizedContainerService.HintSize="232,81" MinRequiredVersion="2.10.0.19" Moniker="0b014f00-8bec-4af7-9fc4-a44e064fc270" Result="[CaseObject_Result]" ResultString="[CaseObject_ResultString]" RunAsCurrentLoggedOnUser="False" RunCase="False" ScriptExecutionMethod="None" TypeName="CaseObject" ValidationError="" Value_DisplayArg="0" Value_Item="{x:Null}" Value_Type="x:String" m_bTextLinkChange="False">
+                  <p:CaseObject.ThenOption>
+                    <p:SequenceActivity DisplayName="Then" sap:VirtualizedContainerService.HintSize="172,81" Name="SequenceActivity">
+                      <p:SequenceActivity.Activities>
+                        <p:IfObject CaseSensitive_ItemProp="{x:Null}" Condition_ItemProp="{x:Null}" Value_Item="{x:Null}" Value_ItemProp="{x:Null}" Variable_ItemProp="{x:Null}" VerboseOutput_ItemProp="{x:Null}" AssemblyName="PolicyExecutionEngine, Version=2.98.2.2, Culture=neutral, PublicKeyToken=null" CaseSensitive="False" CaseSensitive_DisplayArg="false" CaseSensitive_Item="{x:Null}" Condition="equals" Condition_DisplayArg="equals" Condition_Item="{x:Null}" DisplayName="Fail if Installed" sap:VirtualizedContainerService.HintSize="351,81" MinRequiredVersion="2.19.0.1" Moniker="0f147ee1-9daf-43b9-9f4f-064b0e89bcb0" Result="[IfObject_Result_1]" ResultString="[IfObject_ResultString_1]" RunAsCurrentLoggedOnUser="False" ScriptExecutionMethod="None" TypeName="IfObject" Value_DisplayArg="True" Value_Type="x:String" Variable="[RegistryKeyExists_Conditional]" Variable_DisplayArg="Registry Key Exists.Conditional" Variable_Item="{x:Null}" Variable_Type="x:String" VerboseOutput="False" VerboseOutput_DisplayArg="" VerboseOutput_Item="{x:Null}" m_bTextLinkChange="False">
+                          <p:IfObject.IfOption>
+                            <p:SequenceActivity DisplayName="Then" sap:VirtualizedContainerService.HintSize="172,81" Name="SequenceActivity">
+                              <p:SequenceActivity.Activities>
+                                <p:StopPolicy CompletionResult_ItemProp="{x:Null}" StopReason_ItemProp="{x:Null}" AssemblyName="PolicyExecutionEngine, Version=2.98.2.2, Culture=neutral, PublicKeyToken=null" CompletionResult="1" CompletionResult_DisplayArg="1" CompletionResult_Item="{x:Null}" DisplayName="Stop Policy" sap:VirtualizedContainerService.HintSize="399,124" MinRequiredVersion="2.16.1.1" Moniker="5b8e80c0-06a5-46f8-90e5-85ee05429140" Result="[StopPolicy_Result_1]" ResultString="[StopPolicy_ResultString_1]" RunAsCurrentLoggedOnUser="False" ScriptExecutionMethod="None" StopReason="Application Installed" StopReason_DisplayArg="Application Installed" StopReason_Item="{x:Null}" TypeName="StopPolicy" m_bTextLinkChange="False" />
+                              </p:SequenceActivity.Activities>
+                              <p:SequenceActivity.Variables>
+                                <Variable x:TypeArguments="x:Double" Name="StopPolicy_Result_1" />
+                                <Variable x:TypeArguments="x:String" Name="StopPolicy_ResultString_1" />
+                              </p:SequenceActivity.Variables>
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                            </p:SequenceActivity>
+                          </p:IfObject.IfOption>
+                          <p:IfObject.Value>
+                            <InArgument x:TypeArguments="x:Object">
+                              <p:ObjectLiteral Value="True" />
+                            </InArgument>
+                          </p:IfObject.Value>
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                        </p:IfObject>
+                        <p:Log Message_ItemProp="{x:Null}" AssemblyName="PolicyExecutionEngine, Version=2.98.2.2, Culture=neutral, PublicKeyToken=null" DisplayName="Log" sap:VirtualizedContainerService.HintSize="351,81" LogMessage="[Log_LogMessage]" Message="Application Already Uninstalled" Message_DisplayArg="Application Already Uninstalled" Message_Item="{x:Null}" MinRequiredVersion="2.10.0.19" Moniker="c43bad02-d053-49cd-8b32-ea636db6cb10" Result="[Log_Result]" ResultString="[Log_ResultString]" RunAsCurrentLoggedOnUser="False" ScriptExecutionMethod="ExecuteDebug" TypeName="Log" m_bTextLinkChange="False">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                        </p:Log>
+                      </p:SequenceActivity.Activities>
+                      <p:SequenceActivity.Variables>
+                        <Variable x:TypeArguments="x:Double" Name="IfObject_Result_1" />
+                        <Variable x:TypeArguments="x:String" Name="IfObject_ResultString_1" />
+                        <Variable x:TypeArguments="x:String" Name="Log_LogMessage" />
+                        <Variable x:TypeArguments="x:String" Name="Log_ResultString" />
+                        <Variable x:TypeArguments="x:Double" Name="Log_Result" />
+                      </p:SequenceActivity.Variables>
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                    </p:SequenceActivity>
+                  </p:CaseObject.ThenOption>
+                  <p:CaseObject.Value>
+                    <InArgument x:TypeArguments="x:Object">
+                      <p:ObjectLiteral Result="{x:Null}" Value="0" />
+                    </InArgument>
+                  </p:CaseObject.Value>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </p:CaseObject>
+                <p:CaseObject Value_ItemProp="{x:Null}" AssemblyName="PolicyExecutionEngine, Version=2.98.2.2, Culture=neutral, PublicKeyToken=null" DisplayName="Check Installed" sap:VirtualizedContainerService.HintSize="232,81" MinRequiredVersion="2.10.0.19" Moniker="75e738cc-68ca-48df-9cfa-108e0800050e" Result="[CaseObject_Result_1]" ResultString="[CaseObject_ResultString_1]" RunAsCurrentLoggedOnUser="False" RunCase="False" ScriptExecutionMethod="None" TypeName="CaseObject" ValidationError="" Value_DisplayArg="1" Value_Item="{x:Null}" Value_Type="x:String" m_bTextLinkChange="False">
+                  <p:CaseObject.ThenOption>
+                    <p:SequenceActivity DisplayName="Then" sap:VirtualizedContainerService.HintSize="172,81" Name="SequenceActivity">
+                      <p:SequenceActivity.Activities>
+                        <p:IfObject CaseSensitive_ItemProp="{x:Null}" Condition_ItemProp="{x:Null}" Value_Item="{x:Null}" Value_ItemProp="{x:Null}" Variable_ItemProp="{x:Null}" VerboseOutput_ItemProp="{x:Null}" AssemblyName="PolicyExecutionEngine, Version=2.96.1.1, Culture=neutral, PublicKeyToken=null" CaseSensitive="False" CaseSensitive_DisplayArg="false" CaseSensitive_Item="{x:Null}" Condition="equals" Condition_DisplayArg="equals" Condition_Item="{x:Null}" DisplayName="Fail when Missing" sap:VirtualizedContainerService.HintSize="359,81" MinRequiredVersion="2.19.0.1" Moniker="dac76952-ee4b-4368-b0b4-c8057471e29a" Result="[IfObject_Result]" ResultString="[IfObject_ResultString]" RunAsCurrentLoggedOnUser="False" ScriptExecutionMethod="None" TypeName="IfObject" Value_DisplayArg="False" Value_Type="x:String" Variable="[RegistryKeyExists_Conditional]" Variable_DisplayArg="Registry Key Exists.Conditional" Variable_Item="{x:Null}" Variable_Type="x:String" VerboseOutput="False" VerboseOutput_DisplayArg="" VerboseOutput_Item="{x:Null}" m_bTextLinkChange="False">
+                          <p:IfObject.IfOption>
+                            <p:SequenceActivity DisplayName="Then" sap:VirtualizedContainerService.HintSize="172,81" Name="SequenceActivity">
+                              <p:SequenceActivity.Activities>
+                                <p:StopPolicy CompletionResult_ItemProp="{x:Null}" StopReason_ItemProp="{x:Null}" AssemblyName="PolicyExecutionEngine, Version=2.98.1.2, Culture=neutral, PublicKeyToken=null" CompletionResult="1" CompletionResult_DisplayArg="1" CompletionResult_Item="{x:Null}" DisplayName="Stop Policy" sap:VirtualizedContainerService.HintSize="399,81" MinRequiredVersion="2.16.1.1" Moniker="dd552341-113e-4ec2-8843-8c823fb14c19" Result="[StopPolicy_Result]" ResultString="[StopPolicy_ResultString]" RunAsCurrentLoggedOnUser="False" ScriptExecutionMethod="None" StopReason="Application not installed" StopReason_DisplayArg="Application not installed" StopReason_Item="{x:Null}" TypeName="StopPolicy" m_bTextLinkChange="False">
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                </p:StopPolicy>
+                              </p:SequenceActivity.Activities>
+                              <p:SequenceActivity.Variables>
+                                <Variable x:TypeArguments="x:String" Name="StopPolicy_ResultString" />
+                                <Variable x:TypeArguments="x:Double" Name="StopPolicy_Result" />
+                              </p:SequenceActivity.Variables>
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                            </p:SequenceActivity>
+                          </p:IfObject.IfOption>
+                          <p:IfObject.Value>
+                            <InArgument x:TypeArguments="x:Object">
+                              <p:ObjectLiteral Value="False" />
+                            </InArgument>
+                          </p:IfObject.Value>
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                        </p:IfObject>
+                        <p:Log Message_ItemProp="{x:Null}" AssemblyName="PolicyExecutionEngine, Version=2.98.2.2, Culture=neutral, PublicKeyToken=null" DisplayName="Log" sap:VirtualizedContainerService.HintSize="359,88" LogMessage="[Log_LogMessage_1]" Message="Application Already Installed" Message_DisplayArg="Application Already Installed" Message_Item="{x:Null}" MinRequiredVersion="2.10.0.19" Moniker="a0e51b98-bbe6-4835-9c8c-2f5c8b7d0360" Result="[Log_Result_1]" ResultString="[Log_ResultString_1]" RunAsCurrentLoggedOnUser="False" ScriptExecutionMethod="ExecuteDebug" TypeName="Log" m_bTextLinkChange="False" />
+                      </p:SequenceActivity.Activities>
+                      <p:SequenceActivity.Variables>
+                        <Variable x:TypeArguments="x:Double" Name="IfObject_Result" />
+                        <Variable x:TypeArguments="x:String" Name="IfObject_ResultString" />
+                        <Variable x:TypeArguments="x:String" Name="Log_LogMessage_1" />
+                        <Variable x:TypeArguments="x:String" Name="Log_ResultString_1" />
+                        <Variable x:TypeArguments="x:Double" Name="Log_Result_1" />
+                      </p:SequenceActivity.Variables>
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                    </p:SequenceActivity>
+                  </p:CaseObject.ThenOption>
+                  <p:CaseObject.Value>
+                    <InArgument x:TypeArguments="x:Object">
+                      <p:ObjectLiteral Result="{x:Null}" Value="1" />
+                    </InArgument>
+                  </p:CaseObject.Value>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </p:CaseObject>
+              </p:CaseSequenceActivity.Activities>
+              <p:CaseSequenceActivity.Variables>
+                <Variable x:TypeArguments="x:String" Name="CaseObject_ResultString" />
+                <Variable x:TypeArguments="x:Double" Name="CaseObject_Result" />
+                <Variable x:TypeArguments="x:String" Name="CaseObject_ResultString_1" />
+                <Variable x:TypeArguments="x:Double" Name="CaseObject_Result_1" />
+              </p:CaseSequenceActivity.Variables>
+            </p:CaseSequenceActivity>
+          </p:SwitchObject.CaseSequence>
+          <p:SwitchObject.DefaultOption>
+            <p:SequenceActivity DisplayName="Default" sap:VirtualizedContainerService.HintSize="149,127" Name="SequenceActivity">
+              <p:SequenceActivity.Activities>
+                <sco:Collection x:TypeArguments="Activity" />
+              </p:SequenceActivity.Activities>
+              <p:SequenceActivity.Variables>
+                <sco:Collection x:TypeArguments="Variable" />
+              </p:SequenceActivity.Variables>
+            </p:SequenceActivity>
+          </p:SwitchObject.DefaultOption>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </p:SwitchObject>
+      </p:PolicySequence.Activities>
+      <p:PolicySequence.Variables>
+        <Variable x:TypeArguments="x:String" Name="RegistryKeyExists_Conditional" />
+        <Variable x:TypeArguments="x:String" Name="RegistryKeyExists_ResultString" />
+        <Variable x:TypeArguments="x:Double" Name="RegistryKeyExists_Result" />
+        <Variable x:TypeArguments="x:String" Name="SwitchObject_ResultString" />
+        <Variable x:TypeArguments="x:Double" Name="SwitchObject_Result" />
+        <Variable x:TypeArguments="x:String" Name="IfElse_ResultString" />
+        <Variable x:TypeArguments="x:Double" Name="IfElse_Result" />
+        <Variable x:TypeArguments="x:String" Default="Threatlocker" Name="Application" />
+        <Variable x:TypeArguments="x:String" Name="GetEnvironmentVariable_Value" />
+        <Variable x:TypeArguments="x:String" Name="GetEnvironmentVariable_ResultString" />
+        <Variable x:TypeArguments="x:Double" Name="GetEnvironmentVariable_Result" />
+        <Variable x:TypeArguments="x:Double" Default="0" Name="Task_Check" />
+      </p:PolicySequence.Variables>
+    </p:PolicySequence>
+  </Activity>
+</Policy>

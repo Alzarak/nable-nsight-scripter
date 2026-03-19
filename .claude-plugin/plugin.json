@@ -1,0 +1,8 @@
+{
+  "name": "nsight-scripter",
+  "version": "1.0.0",
+  "description": "Create, edit, read, and manage N-Able N-Sight RMM Automation Manager (.amp) policy files and PowerShell scripts for N-Sight Script Manager",
+  "author": {
+    "name": "DatoTech"
+  }
+}

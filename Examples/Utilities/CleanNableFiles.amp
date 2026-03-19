@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><Policy ID="07a4932c-d6bb-4f27-95ea-59c18ebaa331" Name="Clean N-Able FIles" Description="Q2xlYW5zIHVwIGNhY2hlIGZpbGVzIGluIHRoZSBmaWxlY2FjaGVhZ2VudCBmb2xkZXIgYW5kIFBNRSBmb2xkZXI=" Version="2.19.0.1" MinRequiredVersion="2.19.0.1" RemoteCategory="0" ExecutionType="Local" MinimumPSVersionRequired="0.0.0">
+  <Object ID="{68bd50f7-ef84-43fa-bce7-49f2543c1ed2}" Type="{B6FA6D8B-EEAA-47A6-8463-7F9A4F5BBB6E}" Data="&lt;xml&gt;&lt;GlobalVariables&gt;&lt;Parameter ParameterName=&quot;FileCacheServiceAgentService&quot; Label=&quot;File Cache Service Agent Service&quot; ParameterType=&quot;string&quot; Value=&quot;SolarWinds.MSP.CacheService&quot; /&gt;&lt;Parameter ParameterName=&quot;FileCacheServiceAgentFolder&quot; Label=&quot;File Cache Service Agent Folder&quot; ParameterType=&quot;string&quot; Value=&quot;C:\ProgramData\MspPlatform\FileCacheServiceAgent\cache\*&quot; /&gt;&lt;/GlobalVariables&gt;&lt;/xml&gt;" />
+  <LinkManager xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/PolicyExecutor">
+    <hashset xmlns:d2p1="http://schemas.datacontract.org/2004/07/System" />
+  </LinkManager>
+  <Diagnostics OriginalVersion="2.98.1.2" />
+  <Activity mc:Ignorable="sads sap" x:Class="Policy Builder" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:p="clr-namespace:PolicyExecutor;assembly=PolicyExecutionEngine" xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <x:Members>
+      <x:Property Name="PolicyGUID" Type="InArgument(x:String)" />
+    </x:Members>
+    <sap:VirtualizedContainerService.HintSize>296,546</sap:VirtualizedContainerService.HintSize>
+    <mva:VisualBasic.Settings>Assembly references and imported namespaces serialized as XML namespaces</mva:VisualBasic.Settings>
+    <p:PolicySequence DisplayName="Policy Builder" sap:VirtualizedContainerService.HintSize="296,546" MinRequiredVersion="2.19.0.1" mva:VisualBasic.Settings="Assembly references and imported namespaces serialized as XML namespaces">
+      <p:PolicySequence.Activities>
+        <p:IfObject CaseSensitive_ItemProp="{x:Null}" Condition_ItemProp="{x:Null}" Value_Item="{x:Null}" Value_ItemProp="{x:Null}" Variable_Item="{x:Null}" Variable_ItemProp="{x:Null}" VerboseOutput_ItemProp="{x:Null}" AssemblyName="PolicyExecutionEngine, Version=2.98.1.2, Culture=neutral, PublicKeyToken=null" CaseSensitive="False" CaseSensitive_DisplayArg="false" CaseSensitive_Item="{x:Null}" Condition="is not NULL" Condition_DisplayArg="is not NULL" Condition_Item="{x:Null}" DisplayName="Clear Cache" sap:VirtualizedContainerService.HintSize="260,81" MinRequiredVersion="2.19.0.1" Moniker="9dde7ea8-b1dd-4d42-9778-1acc0d58f418" Result="[IfObject_Result]" ResultString="[IfObject_ResultString]" RunAsCurrentLoggedOnUser="False" ScriptExecutionMethod="None" TypeName="IfObject" Value_DisplayArg="" Value_Type="x:String" Variable="[FileCacheServiceAgentService]" Variable_DisplayArg="Global Variables.File Cache Service Agent Service" Variable_Type="x:String" VerboseOutput="False" VerboseOutput_DisplayArg="" VerboseOutput_Item="{x:Null}" m_bTextLinkChange="False">
+          <p:IfObject.IfOption>
+            <p:SequenceActivity DisplayName="Then" sap:VirtualizedContainerService.HintSize="172,81" Name="SequenceActivity">
+              <p:SequenceActivity.Activities>
+                <p:StopService Disable_ItemProp="{x:Null}" Force_ItemProp="{x:Null}" Service_Item="{x:Null}" Service_ItemProp="{x:Null}" AssemblyName="PolicyExecutionEngine, Version=2.98.1.2, Culture=neutral, PublicKeyToken=null" Disable="False" Disable_DisplayArg="false" Disable_Item="{x:Null}" DisplayName="Stop Service" Force="True" Force_DisplayArg="false" Force_Item="{x:Null}" sap:VirtualizedContainerService.HintSize="451,81" MinRequiredVersion="2.10.0.19" Moniker="9bc94da6-3d0d-4de1-8451-9c858f971ea7" Result="[StopService_Result]" ResultString="[StopService_ResultString]" RunAsCurrentLoggedOnUser="False" ScriptExecutionMethod="ExecuteDebug" Service="[FileCacheServiceAgentService]" Service_DisplayArg="Global Variables.File Cache Service Agent Service" TypeName="StopService" m_bTextLinkChange="False">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </p:StopService>
+                <p:DeleteFile FileName_Item="{x:Null}" FileName_ItemProp="{x:Null}" Recurse_ItemProp="{x:Null}" AssemblyName="PolicyExecutionEngine, Version=2.98.1.2, Culture=neutral, PublicKeyToken=null" DisplayName="Delete File" FileName="[FileCacheServiceAgentFolder]" FileName_DisplayArg="Global Variables.File Cache Service Agent Folder" sap:VirtualizedContainerService.HintSize="451,81" MinRequiredVersion="2.10.0.19" Moniker="48eacfc8-8908-4ffc-854d-e37a6f695d88" Recurse="True" Recurse_DisplayArg="" Recurse_Item="{x:Null}" Result="[DeleteFile_Result]" ResultString="[DeleteFile_ResultString]" RunAsCurrentLoggedOnUser="False" ScriptExecutionMethod="None" TypeName="DeleteFile" m_bTextLinkChange="False">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </p:DeleteFile>
+                <p:StartService Disabled_ItemProp="{x:Null}" Service_Item="{x:Null}" Service_ItemProp="{x:Null}" StartupType_ItemProp="{x:Null}" AssemblyName="PolicyExecutionEngine, Version=2.98.1.2, Culture=neutral, PublicKeyToken=null" Disabled="False" Disabled_DisplayArg="" Disabled_Item="{x:Null}" DisplayName="Start Service" sap:VirtualizedContainerService.HintSize="199,81" MinRequiredVersion="2.10.0.19" Moniker="22b505d3-063a-4972-a8c7-803d63599fd3" Result="[StartService_Result]" ResultString="[StartService_ResultString]" RunAsCurrentLoggedOnUser="False" ScriptExecutionMethod="ExecuteDebug" Service="[FileCacheServiceAgentService]" Service_DisplayArg="Global Variables.File Cache Service Agent Service" StartupType="Automatic" StartupType_DisplayArg="Automatic" StartupType_Item="{x:Null}" TypeName="StartService" m_bTextLinkChange="False">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </p:StartService>
+              </p:SequenceActivity.Activities>
+              <p:SequenceActivity.Variables>
+                <Variable x:TypeArguments="x:String" Name="StopService_ResultString" />
+                <Variable x:TypeArguments="x:Double" Name="StopService_Result" />
+                <Variable x:TypeArguments="x:String" Name="DeleteFile_ResultString" />
+                <Variable x:TypeArguments="x:Double" Name="DeleteFile_Result" />
+                <Variable x:TypeArguments="x:String" Name="StartService_ResultString" />
+                <Variable x:TypeArguments="x:Double" Name="StartService_Result" />
+              </p:SequenceActivity.Variables>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </p:SequenceActivity>
+          </p:IfObject.IfOption>
+          <p:IfObject.Value>
+            <InArgument x:TypeArguments="x:Object">
+              <p:ObjectLiteral Value="" />
+            </InArgument>
+          </p:IfObject.Value>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </p:IfObject>
+        <p:IsServiceRunning Service_Item="{x:Null}" Service_ItemProp="{x:Null}" AssemblyName="PolicyExecutionEngine, Version=2.98.1.2, Culture=neutral, PublicKeyToken=null" Conditional="[IsServiceRunning_Conditional]" DisplayName="Is Service Running" sap:VirtualizedContainerService.HintSize="260,81" MinRequiredVersion="2.16.0.1" Moniker="bd25026e-a80e-4d21-82ad-9c3b765c85bc" Result="[IsServiceRunning_Result]" ResultString="[IsServiceRunning_ResultString]" RunAsCurrentLoggedOnUser="False" ScriptExecutionMethod="ExecuteDebug" Service="[FileCacheServiceAgentService]" Service_DisplayArg="Global Variables.File Cache Service Agent Service" TypeName="IsServiceRunning" m_bTextLinkChange="False">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </p:IsServiceRunning>
+        <p:IfObject CaseSensitive_ItemProp="{x:Null}" Condition_ItemProp="{x:Null}" Value_Item="{x:Null}" Value_ItemProp="{x:Null}" Variable_ItemProp="{x:Null}" VerboseOutput_ItemProp="{x:Null}" AssemblyName="PolicyExecutionEngine, Version=2.98.1.2, Culture=neutral, PublicKeyToken=null" CaseSensitive="False" CaseSensitive_DisplayArg="false" CaseSensitive_Item="{x:Null}" Condition="equals" Condition_DisplayArg="equals" Condition_Item="{x:Null}" DisplayName="If Service does not start" sap:VirtualizedContainerService.HintSize="260,81" MinRequiredVersion="2.19.0.1" Moniker="f21914ff-09e4-4582-963b-a74a27c0a3e5" Result="[IfObject_Result_1]" ResultString="[IfObject_ResultString_1]" RunAsCurrentLoggedOnUser="False" ScriptExecutionMethod="None" TypeName="IfObject" Value_DisplayArg="false" Value_Type="x:String" Variable="[IsServiceRunning_Conditional]" Variable_DisplayArg="Is Service Running.Conditional" Variable_Item="{x:Null}" Variable_Type="x:String" VerboseOutput="False" VerboseOutput_DisplayArg="" VerboseOutput_Item="{x:Null}" m_bTextLinkChange="False">
+          <p:IfObject.IfOption>
+            <p:SequenceActivity DisplayName="Then" sap:VirtualizedContainerService.HintSize="172,81" Name="SequenceActivity">
+              <p:SequenceActivity.Activities>
+                <p:StartService Disabled_ItemProp="{x:Null}" Service_Item="{x:Null}" Service_ItemProp="{x:Null}" StartupType_ItemProp="{x:Null}" AssemblyName="PolicyExecutionEngine, Version=2.98.1.2, Culture=neutral, PublicKeyToken=null" Disabled="True" Disabled_DisplayArg="" Disabled_Item="{x:Null}" DisplayName="Start Service" sap:VirtualizedContainerService.HintSize="226,81" MinRequiredVersion="2.10.0.19" Moniker="1a3a83bd-865f-4837-8319-67ab6ac34db9" Result="[StartService_Result_1]" ResultString="[StartService_ResultString_1]" RunAsCurrentLoggedOnUser="False" ScriptExecutionMethod="ExecuteDebug" Service="[FileCacheServiceAgentService]" Service_DisplayArg="Global Variables.File Cache Service Agent Service" StartupType="Automatic" StartupType_DisplayArg="Automatic" StartupType_Item="{x:Null}" TypeName="StartService" m_bTextLinkChange="False">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </p:StartService>
+                <p:IsServiceRunning Service_Item="{x:Null}" Service_ItemProp="{x:Null}" AssemblyName="PolicyExecutionEngine, Version=2.98.1.2, Culture=neutral, PublicKeyToken=null" Conditional="[IsServiceRunning_Conditional_1]" DisplayName="Is Service Running" sap:VirtualizedContainerService.HintSize="226,81" MinRequiredVersion="2.16.0.1" Moniker="f2365003-8a64-4980-a790-df12571ee8fa" Result="[IsServiceRunning_Result_1]" ResultString="[IsServiceRunning_ResultString_1]" RunAsCurrentLoggedOnUser="False" ScriptExecutionMethod="ExecuteDebug" Service="[FileCacheServiceAgentService]" Service_DisplayArg="Global Variables.File Cache Service Agent Service" TypeName="IsServiceRunning" m_bTextLinkChange="False">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </p:IsServiceRunning>
+                <p:IfObject CaseSensitive_ItemProp="{x:Null}" Condition_ItemProp="{x:Null}" Value_Item="{x:Null}" Value_ItemProp="{x:Null}" Variable_ItemProp="{x:Null}" VerboseOutput_ItemProp="{x:Null}" AssemblyName="PolicyExecutionEngine, Version=2.98.1.2, Culture=neutral, PublicKeyToken=null" CaseSensitive="False" CaseSensitive_DisplayArg="false" CaseSensitive_Item="{x:Null}" Condition="equals" Condition_DisplayArg="equals" Condition_Item="{x:Null}" DisplayName="If" sap:VirtualizedContainerService.HintSize="226,81" MinRequiredVersion="2.19.0.1" Moniker="540fa383-95d2-458a-a068-fbec73205253" Result="[IfObject_Result_2]" ResultString="[IfObject_ResultString_2]" RunAsCurrentLoggedOnUser="False" ScriptExecutionMethod="None" TypeName="IfObject" Value_DisplayArg="false" Value_Type="x:String" Variable="[IsServiceRunning_Conditional_1]" Variable_DisplayArg="Is Service Running.Conditional" Variable_Item="{x:Null}" Variable_Type="x:String" VerboseOutput="False" VerboseOutput_DisplayArg="" VerboseOutput_Item="{x:Null}" m_bTextLinkChange="False">
+                  <p:IfObject.IfOption>
+                    <p:SequenceActivity DisplayName="Then" sap:VirtualizedContainerService.HintSize="172,81" Name="SequenceActivity">
+                      <p:SequenceActivity.Activities>
+                        <p:StopPolicy CompletionResult_ItemProp="{x:Null}" StopReason_ItemProp="{x:Null}" AssemblyName="PolicyExecutionEngine, Version=2.98.1.2, Culture=neutral, PublicKeyToken=null" CompletionResult="1" CompletionResult_DisplayArg="1" CompletionResult_Item="{x:Null}" DisplayName="Stop Policy" sap:VirtualizedContainerService.HintSize="183,81" MinRequiredVersion="2.16.1.1" Moniker="bf126a45-b7d0-4cea-a976-37a5e601e851" Result="[StopPolicy_Result]" ResultString="[StopPolicy_ResultString]" RunAsCurrentLoggedOnUser="False" ScriptExecutionMethod="None" StopReason="Service will not start" StopReason_DisplayArg="Service will not start" StopReason_Item="{x:Null}" TypeName="StopPolicy" m_bTextLinkChange="False">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                        </p:StopPolicy>
+                      </p:SequenceActivity.Activities>
+                      <p:SequenceActivity.Variables>
+                        <Variable x:TypeArguments="x:String" Name="StopPolicy_ResultString" />
+                        <Variable x:TypeArguments="x:Double" Name="StopPolicy_Result" />
+                      </p:SequenceActivity.Variables>
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                    </p:SequenceActivity>
+                  </p:IfObject.IfOption>
+                  <p:IfObject.Value>
+                    <InArgument x:TypeArguments="x:Object">
+                      <p:ObjectLiteral Value="false" />
+                    </InArgument>
+                  </p:IfObject.Value>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </p:IfObject>
+              </p:SequenceActivity.Activities>
+              <p:SequenceActivity.Variables>
+                <Variable x:TypeArguments="x:String" Name="StartService_ResultString_1" />
+                <Variable x:TypeArguments="x:Double" Name="StartService_Result_1" />
+                <Variable x:TypeArguments="x:String" Name="IfObject_ResultString_2" />
+                <Variable x:TypeArguments="x:Double" Name="IfObject_Result_2" />
+                <Variable x:TypeArguments="x:String" Name="IsServiceRunning_Conditional_1" />
+                <Variable x:TypeArguments="x:String" Name="IsServiceRunning_ResultString_1" />
+                <Variable x:TypeArguments="x:Double" Name="IsServiceRunning_Result_1" />
+              </p:SequenceActivity.Variables>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </p:SequenceActivity>
+          </p:IfObject.IfOption>
+          <p:IfObject.Value>
+            <InArgument x:TypeArguments="x:Object">
+              <p:ObjectLiteral Value="false" />
+            </InArgument>
+          </p:IfObject.Value>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </p:IfObject>
+      </p:PolicySequence.Activities>
+      <p:PolicySequence.Variables>
+        <Variable x:TypeArguments="x:String" Name="IfObject_ResultString" />
+        <Variable x:TypeArguments="x:Double" Name="IfObject_Result" />
+        <Variable x:TypeArguments="x:String" Name="IsServiceRunning_Conditional" />
+        <Variable x:TypeArguments="x:String" Name="IsServiceRunning_ResultString" />
+        <Variable x:TypeArguments="x:Double" Name="IsServiceRunning_Result" />
+        <Variable x:TypeArguments="x:String" Name="IfObject_ResultString_1" />
+        <Variable x:TypeArguments="x:Double" Name="IfObject_Result_1" />
+        <Variable x:TypeArguments="x:String" Default="SolarWinds.MSP.CacheService" Name="FileCacheServiceAgentService" />
+        <Variable x:TypeArguments="x:String" Default="C:\ProgramData\MspPlatform\FileCacheServiceAgent\cache\*" Name="FileCacheServiceAgentFolder" />
+      </p:PolicySequence.Variables>
+    </p:PolicySequence>
+  </Activity>
+</Policy>
