@@ -4,3 +4,12 @@ Thumbs.db
 *.swo
 *~
 .claude/*.local.md
+
+#Examples
+/Examples/
+
+#Claude
+/.claude/
+
+#Documentation
+/docs/
