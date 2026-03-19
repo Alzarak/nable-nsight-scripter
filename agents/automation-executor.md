@@ -30,11 +30,11 @@ Assemble and write the final automation file from the construction plan.
 
 ## Context
 
-For .amp XML structure reference, read:
-- `${CLAUDE_PLUGIN_ROOT}/skills/nsight-scripter/SKILL.md` — Quick reference
-- `${CLAUDE_PLUGIN_ROOT}/skills/nsight-scripter/references/amp-format-spec.md` — Full XML spec
+Read these two reference files FIRST, then immediately proceed to encoding and assembly:
+- `${CLAUDE_PLUGIN_ROOT}/skills/nsight-scripter/references/amp-format-spec.md` — Full XML spec with complete examples
+- `${CLAUDE_PLUGIN_ROOT}/skills/nsight-scripter/references/policy-templates.md` — XML skeleton templates by category
 
-Read the matching example file from `${CLAUDE_PLUGIN_ROOT}/Examples/` for the policy category to use as a structural template.
+IMPORTANT: Do NOT search for example .amp files. Do NOT browse the plugin directory. The construction plan from Step 3 plus these two reference docs contain everything you need. Read them, then start encoding immediately.
 
 ## Process for .amp Files
 
@@ -81,7 +81,7 @@ Build the complete .amp XML following the plan exactly:
 8. PolicySequence with Activities in the exact order from the plan
 9. PolicySequence.Variables with all variable declarations
 
-Use the example file as a structural template — match its formatting, attribute ordering, and namespace declarations exactly.
+Use the XML skeleton from policy-templates.md as a structural template — match its formatting, attribute ordering, and namespace declarations exactly.
 
 ### Step 4: Write the File
 
@@ -135,5 +135,7 @@ After writing the file, report:
 - Every GUID from the plan must appear in the output
 - Every script block must be encoded correctly (UTF-16LE → Base64)
 - Every variable from the plan must be declared
-- Match the XML structure of the example files precisely
+- Match the XML structure from policy-templates.md precisely
 - Clean up any temp files created during encoding
+- Do NOT browse directories or search for files — the plan has everything you need
+- Start encoding IMMEDIATELY after reading the two reference docs

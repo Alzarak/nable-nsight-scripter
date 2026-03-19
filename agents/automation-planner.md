@@ -28,14 +28,13 @@ Produce a precise, unambiguous construction plan that the executor agent can fol
 
 ## Context
 
-Read the nsight-scripter skill and references for schema details:
-- `${CLAUDE_PLUGIN_ROOT}/skills/nsight-scripter/SKILL.md` — Core schema knowledge
+Read these reference documents for schema details (read ALL of them before planning):
 - `${CLAUDE_PLUGIN_ROOT}/skills/nsight-scripter/references/amp-format-spec.md` — XML format spec
 - `${CLAUDE_PLUGIN_ROOT}/skills/nsight-scripter/references/activity-types.md` — Activity type reference
 - `${CLAUDE_PLUGIN_ROOT}/skills/nsight-scripter/references/powershell-conventions.md` — PS conventions
-- `${CLAUDE_PLUGIN_ROOT}/skills/nsight-scripter/references/policy-templates.md` — Category templates
+- `${CLAUDE_PLUGIN_ROOT}/skills/nsight-scripter/references/policy-templates.md` — Category templates with XML skeletons
 
-Also read matching example .amp files from `${CLAUDE_PLUGIN_ROOT}/Examples/` based on the policy category.
+The policy-templates.md file contains complete XML skeleton templates for each policy category. Use these as your structural reference — do NOT search for example .amp files.
 
 ## Process
 

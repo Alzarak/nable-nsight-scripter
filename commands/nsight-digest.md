@@ -94,8 +94,9 @@ Output type: {amp or ps1}
 ## Analysis Report (from Step 2)
 {paste the full analysis report here}
 
-Read the nsight-scripter skill and reference documents for schema details.
-Read matching example files from ${CLAUDE_PLUGIN_ROOT}/Examples/.
+Read the reference documents in ${CLAUDE_PLUGIN_ROOT}/skills/nsight-scripter/references/ for schema details.
+The policy-templates.md file contains XML skeleton templates — use those as your structural reference.
+Do NOT search for example .amp files.
 Produce a complete construction plan that the executor can follow mechanically.
 Follow your Process instructions exactly.
 ```
@@ -117,8 +118,9 @@ User's request: {user's full request}
 ## Construction Plan (from Step 3)
 {paste the full construction plan here}
 
-Read the matching example file from ${CLAUDE_PLUGIN_ROOT}/Examples/ as a structural template.
-Assemble, encode, write, and validate the final file.
+Read ${CLAUDE_PLUGIN_ROOT}/skills/nsight-scripter/references/amp-format-spec.md and policy-templates.md for XML structure.
+Do NOT search for example .amp files — the plan and reference docs have everything you need.
+Immediately start encoding and assembling the file, then validate.
 Follow your Process instructions exactly.
 ```
 
