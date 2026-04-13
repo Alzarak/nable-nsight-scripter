@@ -125,8 +125,10 @@ With parameters, the `Data` attribute is HTML-encoded:
 The `<LinkManager>` element is **always static boilerplate**. It does not vary between policies.
 
 ```xml
-<LinkManager xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+<LinkManager xmlns:i="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns="http://schemas.datacontract.org/2004/07/PolicyExecutor">
+  <hashset xmlns:d2p1="http://schemas.datacontract.org/2004/07/System" />
+</LinkManager>
 ```
 
 Always include it exactly as shown.
@@ -164,13 +166,13 @@ The `<Activity>` element must declare these namespaces:
   xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
-  xmlns:p="http://schemas.microsoft.com/netfx/2009/xaml/activities"
-  xmlns:sads="http://schemas.microsoft.com/netfx/2009/xaml/activities/debugger"
+  xmlns:p="clr-namespace:PolicyExecutor;assembly=PolicyExecutionEngine"
+  xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
   xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
   xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  mc:Ignorable="sap sads"
-  x:Class="PolicyExecutor.PolicyWorkflow">
+  mc:Ignorable="sads sap"
+  x:Class="Policy Builder">
 ```
 
 ### Conditional Additional Namespaces
@@ -184,20 +186,18 @@ Add these only when the corresponding activity types are used:
 
 ### Required Boilerplate Inside `<Activity>`
 
-Immediately inside `<Activity>`, before the `<PolicySequence>`, you must include `x:Members` and `VisualBasic.Settings`:
+Immediately inside `<Activity>`, before the `<PolicySequence>`, you must include `x:Members`, `HintSize`, and `VisualBasic.Settings`:
 
 ```xml
 <Activity ...namespaces...>
   <x:Members>
     <x:Property Name="PolicyGUID" Type="InArgument(x:String)" />
-    <x:Property Name="HintSize" Type="InArgument(x:String)" />
   </x:Members>
-  <mva:VisualBasic.Settings>
-    <x:Null />
-  </mva:VisualBasic.Settings>
-  <PolicySequence ...>
+  <sap:VirtualizedContainerService.HintSize>490,827</sap:VirtualizedContainerService.HintSize>
+  <mva:VisualBasic.Settings>Assembly references and imported namespaces serialized as XML namespaces</mva:VisualBasic.Settings>
+  <p:PolicySequence ...>
     <!-- workflow content -->
-  </PolicySequence>
+  </p:PolicySequence>
 </Activity>
 ```
 
@@ -210,19 +210,20 @@ Immediately inside `<Activity>`, before the `<PolicySequence>`, you must include
 ### Structure
 
 ```xml
-<PolicySequence DisplayName="Main"
-                sap:VirtualizedContainerService.HintSize="250,500"
-                mva:VisualBasic.Settings="{x:Null}">
-  <PolicySequence.Variables>
+<p:PolicySequence DisplayName="Policy Builder" sap:VirtualizedContainerService.HintSize="490,827"
+                mva:VisualBasic.Settings="Assembly references and imported namespaces serialized as XML namespaces">
+  <p:PolicySequence.Activities>
+    <!-- Activity elements in execution order -->
+  </p:PolicySequence.Activities>
+  <p:PolicySequence.Variables>
     <!-- Variable declarations -->
-  </PolicySequence.Variables>
-  <!-- Activity elements in execution order -->
-</PolicySequence>
+  </p:PolicySequence.Variables>
+</p:PolicySequence>
 ```
 
 ### Key Points
 
-- `DisplayName` is always `"Main"` for the root sequence.
+- `DisplayName` is always `"Policy Builder"` for the root sequence.
 - `sap:VirtualizedContainerService.HintSize` controls UI layout; use a reasonable default like `"250,500"`.
 - Activities are executed in the order they appear in the XML.
 - The `<PolicySequence.Variables>` section declares all variables used by the workflow.
@@ -334,37 +335,37 @@ Below is a complete, valid `.amp` file with one parameter and a placeholder for 
   <Object ID="{B4FDB623-2227-4500-AA7F-B53A2C5F1B90}"
           Type="{B6FA6D8B-EEAA-47A6-8463-7F9A4F5BBB6E}"
           Data="&lt;xml&gt;&lt;Parameters&gt;&lt;Parameter Name=&quot;TargetHost&quot; Type=&quot;string&quot; Variable=&quot;TargetHost&quot; /&gt;&lt;/Parameters&gt;&lt;GlobalVariables /&gt;&lt;/xml&gt;" />
-  <LinkManager xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-               xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+  <LinkManager xmlns:i="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns="http://schemas.datacontract.org/2004/07/PolicyExecutor">
+    <hashset xmlns:d2p1="http://schemas.datacontract.org/2004/07/System" />
+  </LinkManager>
   <Diagnostics OriginalVersion="2.98.2.2" />
-  <Activity xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+  <Activity mc:Ignorable="sads sap" x:Class="Policy Builder"
+            xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
             xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
-            xmlns:p="http://schemas.microsoft.com/netfx/2009/xaml/activities"
-            xmlns:sads="http://schemas.microsoft.com/netfx/2009/xaml/activities/debugger"
+            xmlns:p="clr-namespace:PolicyExecutor;assembly=PolicyExecutionEngine"
+            xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
             xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
             xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
-            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-            mc:Ignorable="sap sads"
-            x:Class="PolicyExecutor.PolicyWorkflow">
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <x:Members>
       <x:Property Name="PolicyGUID" Type="InArgument(x:String)" />
-      <x:Property Name="HintSize" Type="InArgument(x:String)" />
     </x:Members>
-    <mva:VisualBasic.Settings>
-      <x:Null />
-    </mva:VisualBasic.Settings>
-    <PolicySequence DisplayName="Main"
-                    sap:VirtualizedContainerService.HintSize="250,500"
-                    mva:VisualBasic.Settings="{x:Null}">
-      <PolicySequence.Variables>
+    <sap:VirtualizedContainerService.HintSize>490,827</sap:VirtualizedContainerService.HintSize>
+    <mva:VisualBasic.Settings>Assembly references and imported namespaces serialized as XML namespaces</mva:VisualBasic.Settings>
+    <p:PolicySequence DisplayName="Policy Builder" sap:VirtualizedContainerService.HintSize="490,827"
+                    mva:VisualBasic.Settings="Assembly references and imported namespaces serialized as XML namespaces">
+      <p:PolicySequence.Activities>
+        <!-- Activities go here in execution order -->
+      </p:PolicySequence.Activities>
+      <p:PolicySequence.Variables>
         <Variable x:TypeArguments="x:String" Default="localhost" Name="TargetHost" />
         <Variable x:TypeArguments="x:String" Name="RunScript_PowerShellOutput" />
         <Variable x:TypeArguments="x:String" Name="RunScript_ErrorOutput" />
         <Variable x:TypeArguments="x:Double" Name="RunScript_ExitCode" />
-      </PolicySequence.Variables>
-      <!-- Activities go here in execution order -->
-    </PolicySequence>
+      </p:PolicySequence.Variables>
+    </p:PolicySequence>
   </Activity>
 </Policy>
 ```
@@ -386,34 +387,34 @@ A policy with no parameters or global variables uses the minimal `Data` encoding
   <Object ID="{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}"
           Type="{B6FA6D8B-EEAA-47A6-8463-7F9A4F5BBB6E}"
           Data="&lt;xml /&gt;" />
-  <LinkManager xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-               xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+  <LinkManager xmlns:i="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns="http://schemas.datacontract.org/2004/07/PolicyExecutor">
+    <hashset xmlns:d2p1="http://schemas.datacontract.org/2004/07/System" />
+  </LinkManager>
   <Diagnostics OriginalVersion="2.98.2.2" />
-  <Activity xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+  <Activity mc:Ignorable="sads sap" x:Class="Policy Builder"
+            xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
             xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
-            xmlns:p="http://schemas.microsoft.com/netfx/2009/xaml/activities"
-            xmlns:sads="http://schemas.microsoft.com/netfx/2009/xaml/activities/debugger"
+            xmlns:p="clr-namespace:PolicyExecutor;assembly=PolicyExecutionEngine"
+            xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
             xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
             xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
-            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-            mc:Ignorable="sap sads"
-            x:Class="PolicyExecutor.PolicyWorkflow">
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <x:Members>
       <x:Property Name="PolicyGUID" Type="InArgument(x:String)" />
-      <x:Property Name="HintSize" Type="InArgument(x:String)" />
     </x:Members>
-    <mva:VisualBasic.Settings>
-      <x:Null />
-    </mva:VisualBasic.Settings>
-    <PolicySequence DisplayName="Main"
-                    sap:VirtualizedContainerService.HintSize="250,500"
-                    mva:VisualBasic.Settings="{x:Null}">
-      <PolicySequence.Variables>
+    <sap:VirtualizedContainerService.HintSize>490,827</sap:VirtualizedContainerService.HintSize>
+    <mva:VisualBasic.Settings>Assembly references and imported namespaces serialized as XML namespaces</mva:VisualBasic.Settings>
+    <p:PolicySequence DisplayName="Policy Builder" sap:VirtualizedContainerService.HintSize="490,827"
+                    mva:VisualBasic.Settings="Assembly references and imported namespaces serialized as XML namespaces">
+      <p:PolicySequence.Activities>
+        <!-- Activities go here in execution order -->
+      </p:PolicySequence.Activities>
+      <p:PolicySequence.Variables>
         <!-- Activity output variables declared here -->
-      </PolicySequence.Variables>
-      <!-- Activities go here in execution order -->
-    </PolicySequence>
+      </p:PolicySequence.Variables>
+    </p:PolicySequence>
   </Activity>
 </Policy>
 ```

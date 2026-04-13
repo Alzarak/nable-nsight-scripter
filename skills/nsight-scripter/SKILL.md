@@ -61,10 +61,10 @@ Every `.amp` file is UTF-8 XML 1.0 with this structure:
 
 | Category | Pattern | Complexity | Start With |
 |----------|---------|------------|------------|
-| Utility | RunPowerShellScript + Log | Low | DisablePin.amp |
-| Checker | IsAppInstalled + IfElse + SwitchObject + StopPolicy | Medium | CoveChecker.amp |
-| Deployment | Multiple RunPS + IfElse branches + env vars | High | HuntressDeployment2025.amp |
-| ClientTools | Parameters + InputPrompt or RunPS | Low-Medium | LanMessage.amp |
+| Utility | RunPowerShellScript + Log | Low | Template 1 or 6 |
+| Checker | IsAppInstalled + IfElse + SwitchObject + StopPolicy | Medium | Template 2 |
+| Deployment | Multiple RunPS + IfElse branches + env vars | High | Template 3 |
+| ClientTools | Parameters + InputPrompt or RunPS | Low-Medium | Template 4 or 5 |
 
 ### Variable Naming Convention
 
@@ -77,7 +77,7 @@ Every `.amp` file is UTF-8 XML 1.0 with this structure:
 ### Creating a New .amp File
 
 1. Determine the policy category from the user's description
-2. Read matching example files from `${CLAUDE_PLUGIN_ROOT}/Examples/` for reference
+2. Read the matching template from `${CLAUDE_PLUGIN_ROOT}/skills/nsight-scripter/references/policy-templates.md`
 3. Generate unique GUIDs for Policy ID, Object ID, and each activity Moniker
 4. Base64-encode the description (UTF-8)
 5. If PowerShell is needed, write the script then Base64-encode it (UTF-16LE)
@@ -175,14 +175,17 @@ For detailed specifications, read the reference files in `${CLAUDE_PLUGIN_ROOT}/
 - **powershell-conventions.md** — PowerShell encoding, templates, and best practices
 - **policy-templates.md** — Category patterns and skeleton templates
 
-## Example Files
+## Templates
 
-The `${CLAUDE_PLUGIN_ROOT}/Examples/` directory contains 29 production .amp files organized by category:
+The `policy-templates.md` reference contains complete, ready-to-use templates for each policy category:
 
-- `Utilities/` — DisablePin, RestartService, GPUpdate, CleanNableFiles, etc.
-- `Checkers/` — CoveChecker, DnsFilterChecker, SentinelOneChecker, etc.
-- `Deployments/` — HuntressDeployment2025, SentinelOneDeployment2025, etc.
-- `ClientTools/` — Message, LanMessage, AddTextFile, etc.
-- `Build.ps1` — PowerShell build script demonstrating structured PS conventions
+| Template | Category | Description |
+|----------|----------|-------------|
+| Template 1 | Simple Utility | RunPowerShellScript + Log (minimal policy) |
+| Template 2 | Checker | IsAppInstalled + IfElse + SwitchObject + StopPolicy |
+| Template 3 | Deployment | Override SwitchObject + IsAppInstalled + IfElse + RunPS chains |
+| Template 4 | ClientTools InputPrompt | InputPrompt with parameters |
+| Template 5 | ClientTools RunPS | RunPowerShellScript with InArgs parameter mapping |
+| Template 6 | Multi-Step Utility | FolderExists + IfElse + CreateFolder + RunPowerShellScript |
 
-Always read relevant examples before generating new policies to match existing patterns.
+Always read the matching template before generating new policies to match production patterns.

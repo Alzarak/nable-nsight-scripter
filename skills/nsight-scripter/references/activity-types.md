@@ -1355,3 +1355,518 @@ Deletes a file or files (supports wildcards with Recurse).
     TypeName="DeleteFile"
     m_bTextLinkChange="False" />
 ```
+
+---
+
+## Activity Composition Patterns
+
+Activities nest inside each other to form common policy patterns. Below are the three most important composition patterns showing how activities combine.
+
+### Pattern 1: Checker State-Tracking (IfElse > IfObject > SetEnvironmentVariable)
+
+Used in checker policies to reconcile an environment variable with the app's installed state. The outer IfElse tests whether the app is installed; each branch contains an IfObject that only fires SetEnvironmentVariable when the env var is stale.
+
+```xml
+<!-- Outer: branch on IsAppInstalled result -->
+<p:IfElse CaseSensitive_Item="{x:Null}" CaseSensitive_ItemProp="{x:Null}"
+    Condition_Item="{x:Null}" Condition_ItemProp="{x:Null}"
+    Value_Item="{x:Null}" Value_ItemProp="{x:Null}"
+    Variable_Item="{x:Null}" Variable_ItemProp="{x:Null}"
+    AssemblyName="PolicyExecutionEngine, Version=2.98.2.2, Culture=neutral, PublicKeyToken=null"
+    CaseSensitive="False" CaseSensitive_DisplayArg="false"
+    Condition="equals" Condition_DisplayArg="equals"
+    DisplayName="Set Environment Variable"
+    sap:VirtualizedContainerService.HintSize="305,81"
+    MinRequiredVersion="2.19.0.1"
+    Moniker="GENERATE-NEW-GUID"
+    Result="[IfElse_Result]" ResultString="[IfElse_ResultString]"
+    RunAsCurrentLoggedOnUser="False"
+    ScriptExecutionMethod="None"
+    TypeName="IfElse"
+    Value_DisplayArg="True" Value_Type="x:String"
+    Variable="[IsAppInstalled_Conditional]"
+    Variable_DisplayArg="Is Application Installed.Conditional"
+    Variable_Type="x:String"
+    m_bTextLinkChange="False">
+  <p:IfElse.IfOption>
+    <!-- APP IS INSTALLED: set env var to 0 if not already 0 -->
+    <p:SequenceActivity DisplayName="Then" sap:VirtualizedContainerService.HintSize="172,81" Name="SequenceActivity">
+      <p:SequenceActivity.Activities>
+        <p:IfObject CaseSensitive_Item="{x:Null}" CaseSensitive_ItemProp="{x:Null}"
+            Condition_Item="{x:Null}" Condition_ItemProp="{x:Null}"
+            Value_Item="{x:Null}" Value_ItemProp="{x:Null}"
+            Variable_Item="{x:Null}" Variable_ItemProp="{x:Null}"
+            VerboseOutput_Item="{x:Null}" VerboseOutput_ItemProp="{x:Null}"
+            AssemblyName="PolicyExecutionEngine, Version=2.98.2.2, Culture=neutral, PublicKeyToken=null"
+            CaseSensitive="False" CaseSensitive_DisplayArg="false"
+            Condition="does not equal" Condition_DisplayArg="does not equal"
+            DisplayName="If"
+            sap:VirtualizedContainerService.HintSize="435,81"
+            MinRequiredVersion="2.19.0.1"
+            Moniker="GENERATE-NEW-GUID"
+            Result="[IfObject_Result]" ResultString="[IfObject_ResultString]"
+            RunAsCurrentLoggedOnUser="False"
+            ScriptExecutionMethod="None"
+            TypeName="IfObject"
+            Value_DisplayArg="0" Value_Type="x:String"
+            Variable="[GetEnvironmentVariable_Value]"
+            Variable_DisplayArg="Get Environment Variable.Value"
+            Variable_Type="x:String"
+            VerboseOutput="False" VerboseOutput_DisplayArg=""
+            m_bTextLinkChange="False">
+          <p:IfObject.IfOption>
+            <p:SequenceActivity DisplayName="Then" sap:VirtualizedContainerService.HintSize="172,81" Name="SequenceActivity">
+              <p:SequenceActivity.Activities>
+                <p:SetEnvironmentVariable Type_Item="{x:Null}" Type_ItemProp="{x:Null}"
+                    UserName="{x:Null}" UserName_DisplayArg="{x:Null}"
+                    UserName_Item="{x:Null}" UserName_ItemProp="{x:Null}"
+                    Value_Item="{x:Null}" Value_ItemProp="{x:Null}"
+                    Variable_Item="{x:Null}" Variable_ItemProp="{x:Null}"
+                    AssemblyName="PolicyExecutionEngine, Version=2.98.2.2, Culture=neutral, PublicKeyToken=null"
+                    DisplayName="Set Environment Variable"
+                    sap:VirtualizedContainerService.HintSize="365,81"
+                    MinRequiredVersion="2.10.0.19"
+                    Moniker="GENERATE-NEW-GUID"
+                    Result="[SetEnvironmentVariable_Result]"
+                    ResultString="[SetEnvironmentVariable_ResultString]"
+                    RunAsCurrentLoggedOnUser="False"
+                    ScriptExecutionMethod="ExecuteDebug"
+                    Type="Machine" TypeName="SetEnvironmentVariable"
+                    Type_DisplayArg="Machine"
+                    Value="0" Value_DisplayArg="0"
+                    Variable="[Program]" Variable_DisplayArg="Global Variables.Program"
+                    m_bTextLinkChange="False" />
+              </p:SequenceActivity.Activities>
+              <p:SequenceActivity.Variables>
+                <Variable x:TypeArguments="x:Double" Name="SetEnvironmentVariable_Result" />
+                <Variable x:TypeArguments="x:String" Name="SetEnvironmentVariable_ResultString" />
+              </p:SequenceActivity.Variables>
+            </p:SequenceActivity>
+          </p:IfObject.IfOption>
+          <p:IfObject.Value>
+            <InArgument x:TypeArguments="x:Object">
+              <p:ObjectLiteral Value="0" />
+            </InArgument>
+          </p:IfObject.Value>
+        </p:IfObject>
+      </p:SequenceActivity.Activities>
+      <p:SequenceActivity.Variables>
+        <Variable x:TypeArguments="x:Double" Name="IfObject_Result" />
+        <Variable x:TypeArguments="x:String" Name="IfObject_ResultString" />
+      </p:SequenceActivity.Variables>
+    </p:SequenceActivity>
+  </p:IfElse.IfOption>
+  <p:IfElse.ElseOption>
+    <!-- APP IS NOT INSTALLED: set env var to 1 if not already 1 -->
+    <p:SequenceActivity DisplayName="Else" sap:VirtualizedContainerService.HintSize="172,81" Name="SequenceActivity">
+      <p:SequenceActivity.Activities>
+        <p:IfObject CaseSensitive_Item="{x:Null}" CaseSensitive_ItemProp="{x:Null}"
+            Condition_Item="{x:Null}" Condition_ItemProp="{x:Null}"
+            Value_Item="{x:Null}" Value_ItemProp="{x:Null}"
+            Variable_Item="{x:Null}" Variable_ItemProp="{x:Null}"
+            VerboseOutput_Item="{x:Null}" VerboseOutput_ItemProp="{x:Null}"
+            AssemblyName="PolicyExecutionEngine, Version=2.98.2.2, Culture=neutral, PublicKeyToken=null"
+            CaseSensitive="False" CaseSensitive_DisplayArg="false"
+            Condition="does not equal" Condition_DisplayArg="does not equal"
+            DisplayName="If"
+            sap:VirtualizedContainerService.HintSize="435,81"
+            MinRequiredVersion="2.19.0.1"
+            Moniker="GENERATE-NEW-GUID"
+            Result="[IfObject_Result_1]" ResultString="[IfObject_ResultString_1]"
+            RunAsCurrentLoggedOnUser="False"
+            ScriptExecutionMethod="None"
+            TypeName="IfObject"
+            Value_DisplayArg="1" Value_Type="x:String"
+            Variable="[GetEnvironmentVariable_Value]"
+            Variable_DisplayArg="Get Environment Variable.Value"
+            Variable_Type="x:String"
+            VerboseOutput="False" VerboseOutput_DisplayArg=""
+            m_bTextLinkChange="False">
+          <p:IfObject.IfOption>
+            <p:SequenceActivity DisplayName="Then" sap:VirtualizedContainerService.HintSize="172,81" Name="SequenceActivity">
+              <p:SequenceActivity.Activities>
+                <p:SetEnvironmentVariable Type_Item="{x:Null}" Type_ItemProp="{x:Null}"
+                    UserName="{x:Null}" UserName_DisplayArg="{x:Null}"
+                    UserName_Item="{x:Null}" UserName_ItemProp="{x:Null}"
+                    Value_Item="{x:Null}" Value_ItemProp="{x:Null}"
+                    Variable_Item="{x:Null}" Variable_ItemProp="{x:Null}"
+                    AssemblyName="PolicyExecutionEngine, Version=2.98.2.2, Culture=neutral, PublicKeyToken=null"
+                    DisplayName="Set Environment Variable"
+                    sap:VirtualizedContainerService.HintSize="365,81"
+                    MinRequiredVersion="2.10.0.19"
+                    Moniker="GENERATE-NEW-GUID"
+                    Result="[SetEnvironmentVariable_Result_1]"
+                    ResultString="[SetEnvironmentVariable_ResultString_1]"
+                    RunAsCurrentLoggedOnUser="False"
+                    ScriptExecutionMethod="ExecuteDebug"
+                    Type="Machine" TypeName="SetEnvironmentVariable"
+                    Type_DisplayArg="Machine"
+                    Value="1" Value_DisplayArg="1"
+                    Variable="[Program]" Variable_DisplayArg="Global Variables.Program"
+                    m_bTextLinkChange="False" />
+              </p:SequenceActivity.Activities>
+              <p:SequenceActivity.Variables>
+                <Variable x:TypeArguments="x:Double" Name="SetEnvironmentVariable_Result_1" />
+                <Variable x:TypeArguments="x:String" Name="SetEnvironmentVariable_ResultString_1" />
+              </p:SequenceActivity.Variables>
+            </p:SequenceActivity>
+          </p:IfObject.IfOption>
+          <p:IfObject.Value>
+            <InArgument x:TypeArguments="x:Object">
+              <p:ObjectLiteral Value="1" />
+            </InArgument>
+          </p:IfObject.Value>
+        </p:IfObject>
+      </p:SequenceActivity.Activities>
+      <p:SequenceActivity.Variables>
+        <Variable x:TypeArguments="x:Double" Name="IfObject_Result_1" />
+        <Variable x:TypeArguments="x:String" Name="IfObject_ResultString_1" />
+      </p:SequenceActivity.Variables>
+    </p:SequenceActivity>
+  </p:IfElse.ElseOption>
+  <p:IfElse.Value>
+    <InArgument x:TypeArguments="x:Object">
+      <p:ObjectLiteral Value="True" />
+    </InArgument>
+  </p:IfElse.Value>
+</p:IfElse>
+```
+
+**Variable scoping:** The IfObject and SetEnvironmentVariable variables are declared in their respective SequenceActivity.Variables blocks, NOT in the parent PolicySequence.Variables. Only IfElse_Result and IfElse_ResultString go in the parent scope.
+
+---
+
+### Pattern 2: Checker Task-Check (SwitchObject > CaseObject > IfObject > StopPolicy)
+
+Used in checker policies to verify whether the current installed state matches the desired action (install or uninstall). If there's a mismatch, StopPolicy halts execution with an error.
+
+```xml
+<p:SwitchObject AllowDefault_Item="{x:Null}" AllowDefault_ItemProp="{x:Null}"
+    Variable_Item="{x:Null}" Variable_ItemProp="{x:Null}"
+    AllowDefault="False" AllowDefault_DisplayArg="true"
+    AssemblyName="PolicyExecutionEngine, Version=2.98.2.2, Culture=neutral, PublicKeyToken=null"
+    DisplayName="Output for Install vs Uninstall"
+    sap:VirtualizedContainerService.HintSize="305,81"
+    MinRequiredVersion="2.10.0.19"
+    Moniker="GENERATE-NEW-GUID"
+    Result="[SwitchObject_Result]" ResultString="[SwitchObject_ResultString]"
+    RunAsCurrentLoggedOnUser="False"
+    ScriptExecutionMethod="None"
+    TypeName="SwitchObject"
+    Variable="[Task_Check]"
+    Variable_DisplayArg="Input Parameters.Uninstall = 0 Install = 1"
+    Variable_Type="x:Double"
+    m_bTextLinkChange="False">
+  <p:SwitchObject.CaseSequence>
+    <p:CaseSequenceActivity DisplayName="" sap:VirtualizedContainerService.HintSize="243,238" Name="CaseSequenceActivity">
+      <p:CaseSequenceActivity.Activities>
+        <!-- Case 0 (Uninstall requested): if app still installed, stop with error -->
+        <p:CaseObject Value_Item="{x:Null}" Value_ItemProp="{x:Null}"
+            AssemblyName="PolicyExecutionEngine, Version=2.98.2.2, Culture=neutral, PublicKeyToken=null"
+            DisplayName="Case 0"
+            sap:VirtualizedContainerService.HintSize="237,81"
+            MinRequiredVersion="2.10.0.19"
+            Moniker="GENERATE-NEW-GUID"
+            Result="[CaseObject_Result]" ResultString="[CaseObject_ResultString]"
+            RunAsCurrentLoggedOnUser="False" RunCase="False"
+            ScriptExecutionMethod="None" TypeName="CaseObject"
+            ValidationError=""
+            Value_DisplayArg="0" Value_Type="x:String"
+            m_bTextLinkChange="False">
+          <p:CaseObject.ThenOption>
+            <p:SequenceActivity DisplayName="Then" sap:VirtualizedContainerService.HintSize="172,81" Name="SequenceActivity">
+              <p:SequenceActivity.Activities>
+                <p:IfObject CaseSensitive_Item="{x:Null}" CaseSensitive_ItemProp="{x:Null}"
+                    Condition_Item="{x:Null}" Condition_ItemProp="{x:Null}"
+                    Value_Item="{x:Null}" Value_ItemProp="{x:Null}"
+                    Variable_Item="{x:Null}" Variable_ItemProp="{x:Null}"
+                    VerboseOutput_Item="{x:Null}" VerboseOutput_ItemProp="{x:Null}"
+                    AssemblyName="PolicyExecutionEngine, Version=2.98.2.2, Culture=neutral, PublicKeyToken=null"
+                    CaseSensitive="False" CaseSensitive_DisplayArg="false"
+                    Condition="equals" Condition_DisplayArg="equals"
+                    DisplayName="If"
+                    sap:VirtualizedContainerService.HintSize="435,81"
+                    MinRequiredVersion="2.19.0.1"
+                    Moniker="GENERATE-NEW-GUID"
+                    Result="[IfObject_Result_2]" ResultString="[IfObject_ResultString_2]"
+                    RunAsCurrentLoggedOnUser="False"
+                    ScriptExecutionMethod="None" TypeName="IfObject"
+                    Value_DisplayArg="True" Value_Type="x:String"
+                    Variable="[IsAppInstalled_Conditional]"
+                    Variable_DisplayArg="Is Application Installed.Conditional"
+                    Variable_Type="x:String"
+                    VerboseOutput="False" VerboseOutput_DisplayArg=""
+                    m_bTextLinkChange="False">
+                  <p:IfObject.IfOption>
+                    <p:SequenceActivity DisplayName="Then" sap:VirtualizedContainerService.HintSize="172,81" Name="SequenceActivity">
+                      <p:SequenceActivity.Activities>
+                        <p:StopPolicy CompletionResult_Item="{x:Null}" CompletionResult_ItemProp="{x:Null}"
+                            StopReason_Item="{x:Null}" StopReason_ItemProp="{x:Null}"
+                            AssemblyName="PolicyExecutionEngine, Version=2.98.2.2, Culture=neutral, PublicKeyToken=null"
+                            CompletionResult="1" CompletionResult_DisplayArg="1"
+                            DisplayName="Stop Policy"
+                            sap:VirtualizedContainerService.HintSize="183,81"
+                            MinRequiredVersion="2.16.1.1"
+                            Moniker="GENERATE-NEW-GUID"
+                            Result="[StopPolicy_Result]" ResultString="[StopPolicy_ResultString]"
+                            RunAsCurrentLoggedOnUser="False"
+                            ScriptExecutionMethod="None"
+                            StopReason="Application Still Installed"
+                            StopReason_DisplayArg="Application Still Installed"
+                            TypeName="StopPolicy"
+                            m_bTextLinkChange="False" />
+                      </p:SequenceActivity.Activities>
+                      <p:SequenceActivity.Variables>
+                        <Variable x:TypeArguments="x:Double" Name="StopPolicy_Result" />
+                        <Variable x:TypeArguments="x:String" Name="StopPolicy_ResultString" />
+                      </p:SequenceActivity.Variables>
+                    </p:SequenceActivity>
+                  </p:IfObject.IfOption>
+                  <p:IfObject.Value>
+                    <InArgument x:TypeArguments="x:Object">
+                      <p:ObjectLiteral Value="True" />
+                    </InArgument>
+                  </p:IfObject.Value>
+                </p:IfObject>
+              </p:SequenceActivity.Activities>
+              <p:SequenceActivity.Variables>
+                <Variable x:TypeArguments="x:Double" Name="IfObject_Result_2" />
+                <Variable x:TypeArguments="x:String" Name="IfObject_ResultString_2" />
+              </p:SequenceActivity.Variables>
+            </p:SequenceActivity>
+          </p:CaseObject.ThenOption>
+          <p:CaseObject.Value>
+            <InArgument x:TypeArguments="x:Object">
+              <p:ObjectLiteral Value="0" />
+            </InArgument>
+          </p:CaseObject.Value>
+        </p:CaseObject>
+        <!-- Case 1 (Install requested): if app NOT installed, stop with error -->
+        <p:CaseObject Value_Item="{x:Null}" Value_ItemProp="{x:Null}"
+            AssemblyName="PolicyExecutionEngine, Version=2.98.2.2, Culture=neutral, PublicKeyToken=null"
+            DisplayName="Case 1"
+            sap:VirtualizedContainerService.HintSize="237,81"
+            MinRequiredVersion="2.10.0.19"
+            Moniker="GENERATE-NEW-GUID"
+            Result="[CaseObject_Result_1]" ResultString="[CaseObject_ResultString_1]"
+            RunAsCurrentLoggedOnUser="False" RunCase="False"
+            ScriptExecutionMethod="None" TypeName="CaseObject"
+            ValidationError=""
+            Value_DisplayArg="1" Value_Type="x:String"
+            m_bTextLinkChange="False">
+          <p:CaseObject.ThenOption>
+            <p:SequenceActivity DisplayName="Then" sap:VirtualizedContainerService.HintSize="172,81" Name="SequenceActivity">
+              <p:SequenceActivity.Activities>
+                <p:IfObject CaseSensitive_Item="{x:Null}" CaseSensitive_ItemProp="{x:Null}"
+                    Condition_Item="{x:Null}" Condition_ItemProp="{x:Null}"
+                    Value_Item="{x:Null}" Value_ItemProp="{x:Null}"
+                    Variable_Item="{x:Null}" Variable_ItemProp="{x:Null}"
+                    VerboseOutput_Item="{x:Null}" VerboseOutput_ItemProp="{x:Null}"
+                    AssemblyName="PolicyExecutionEngine, Version=2.98.2.2, Culture=neutral, PublicKeyToken=null"
+                    CaseSensitive="False" CaseSensitive_DisplayArg="false"
+                    Condition="does not equal" Condition_DisplayArg="does not equal"
+                    DisplayName="If"
+                    sap:VirtualizedContainerService.HintSize="435,81"
+                    MinRequiredVersion="2.19.0.1"
+                    Moniker="GENERATE-NEW-GUID"
+                    Result="[IfObject_Result_3]" ResultString="[IfObject_ResultString_3]"
+                    RunAsCurrentLoggedOnUser="False"
+                    ScriptExecutionMethod="None" TypeName="IfObject"
+                    Value_DisplayArg="True" Value_Type="x:String"
+                    Variable="[IsAppInstalled_Conditional]"
+                    Variable_DisplayArg="Is Application Installed.Conditional"
+                    Variable_Type="x:String"
+                    VerboseOutput="False" VerboseOutput_DisplayArg=""
+                    m_bTextLinkChange="False">
+                  <p:IfObject.IfOption>
+                    <p:SequenceActivity DisplayName="Then" sap:VirtualizedContainerService.HintSize="172,81" Name="SequenceActivity">
+                      <p:SequenceActivity.Activities>
+                        <p:StopPolicy CompletionResult_Item="{x:Null}" CompletionResult_ItemProp="{x:Null}"
+                            StopReason_Item="{x:Null}" StopReason_ItemProp="{x:Null}"
+                            AssemblyName="PolicyExecutionEngine, Version=2.98.2.2, Culture=neutral, PublicKeyToken=null"
+                            CompletionResult="1" CompletionResult_DisplayArg="1"
+                            DisplayName="Stop Policy"
+                            sap:VirtualizedContainerService.HintSize="183,81"
+                            MinRequiredVersion="2.16.1.1"
+                            Moniker="GENERATE-NEW-GUID"
+                            Result="[StopPolicy_Result_1]" ResultString="[StopPolicy_ResultString_1]"
+                            RunAsCurrentLoggedOnUser="False"
+                            ScriptExecutionMethod="None"
+                            StopReason="Application Not Installed"
+                            StopReason_DisplayArg="Application Not Installed"
+                            TypeName="StopPolicy"
+                            m_bTextLinkChange="False" />
+                      </p:SequenceActivity.Activities>
+                      <p:SequenceActivity.Variables>
+                        <Variable x:TypeArguments="x:Double" Name="StopPolicy_Result_1" />
+                        <Variable x:TypeArguments="x:String" Name="StopPolicy_ResultString_1" />
+                      </p:SequenceActivity.Variables>
+                    </p:SequenceActivity>
+                  </p:IfObject.IfOption>
+                  <p:IfObject.Value>
+                    <InArgument x:TypeArguments="x:Object">
+                      <p:ObjectLiteral Value="True" />
+                    </InArgument>
+                  </p:IfObject.Value>
+                </p:IfObject>
+              </p:SequenceActivity.Activities>
+              <p:SequenceActivity.Variables>
+                <Variable x:TypeArguments="x:Double" Name="IfObject_Result_3" />
+                <Variable x:TypeArguments="x:String" Name="IfObject_ResultString_3" />
+              </p:SequenceActivity.Variables>
+            </p:SequenceActivity>
+          </p:CaseObject.ThenOption>
+          <p:CaseObject.Value>
+            <InArgument x:TypeArguments="x:Object">
+              <p:ObjectLiteral Value="1" />
+            </InArgument>
+          </p:CaseObject.Value>
+        </p:CaseObject>
+      </p:CaseSequenceActivity.Activities>
+      <p:CaseSequenceActivity.Variables>
+        <Variable x:TypeArguments="x:String" Name="CaseObject_ResultString" />
+        <Variable x:TypeArguments="x:Double" Name="CaseObject_Result" />
+        <Variable x:TypeArguments="x:String" Name="CaseObject_ResultString_1" />
+        <Variable x:TypeArguments="x:Double" Name="CaseObject_Result_1" />
+      </p:CaseSequenceActivity.Variables>
+    </p:CaseSequenceActivity>
+  </p:SwitchObject.CaseSequence>
+  <p:SwitchObject.DefaultOption>
+    <p:SequenceActivity DisplayName="Default" sap:VirtualizedContainerService.HintSize="172,81" Name="SequenceActivity">
+      <p:SequenceActivity.Activities>
+        <sco:Collection x:TypeArguments="Activity" />
+      </p:SequenceActivity.Activities>
+      <p:SequenceActivity.Variables>
+        <sco:Collection x:TypeArguments="Variable" />
+      </p:SequenceActivity.Variables>
+    </p:SequenceActivity>
+  </p:SwitchObject.DefaultOption>
+</p:SwitchObject>
+```
+
+---
+
+### Pattern 3: Deployment Install Path (IfElse > RunPowerShellScript chain)
+
+Used in deployment policies inside the "not installed" branch of an IfElse. Multiple RunPowerShellScript activities execute sequentially: download, install, verify, then SetEnvironmentVariable marks completion.
+
+```xml
+<!-- Inside the IfElse branch (app NOT installed) -->
+<p:SequenceActivity DisplayName="Then" sap:VirtualizedContainerService.HintSize="479,900" Name="SequenceActivity">
+  <p:SequenceActivity.Activities>
+
+    <!-- Step 1: Download installer -->
+    <p:RunPowerShellScript genArgEvent="{x:Null}"
+        AssemblyName="PolicyExecutionEngine, Version=2.98.2.2, Culture=neutral, PublicKeyToken=null"
+        DisplayName="Download Installer"
+        sap:VirtualizedContainerService.HintSize="454,348"
+        Moniker="GENERATE-NEW-GUID"
+        OutPut_64="[RunPowerShellScript_OutPut_64]"
+        Result="[RunPowerShellScript_Result]"
+        ResultString="[RunPowerShellScript_ResultString]"
+        Results_x64="[RunPowerShellScript_Results_x64]"
+        RunAsCurrentLoggedOnUser="False"
+        ScriptExecutionMethod="ExecuteDebug"
+        TypeName="RunPowerShellScript"
+        m_bTextLinkChange="False"
+        script="BASE64_DOWNLOAD_SCRIPT">
+      <p:RunPowerShellScript.InArgs>
+        <scg:Dictionary x:TypeArguments="x:String, p:InArg" />
+      </p:RunPowerShellScript.InArgs>
+      <p:RunPowerShellScript.OutArgs>
+        <scg:Dictionary x:TypeArguments="x:String, p:OutArg" />
+      </p:RunPowerShellScript.OutArgs>
+    </p:RunPowerShellScript>
+
+    <!-- Step 2: Run silent install -->
+    <p:RunPowerShellScript genArgEvent="{x:Null}"
+        AssemblyName="PolicyExecutionEngine, Version=2.98.2.2, Culture=neutral, PublicKeyToken=null"
+        DisplayName="Install Software"
+        sap:VirtualizedContainerService.HintSize="454,348"
+        Moniker="GENERATE-NEW-GUID"
+        OutPut_64="[RunPowerShellScript_OutPut_64_1]"
+        Result="[RunPowerShellScript_Result_1]"
+        ResultString="[RunPowerShellScript_ResultString_1]"
+        Results_x64="[RunPowerShellScript_Results_x64_1]"
+        RunAsCurrentLoggedOnUser="False"
+        ScriptExecutionMethod="ExecuteDebug"
+        TypeName="RunPowerShellScript"
+        m_bTextLinkChange="False"
+        script="BASE64_INSTALL_SCRIPT">
+      <p:RunPowerShellScript.InArgs>
+        <scg:Dictionary x:TypeArguments="x:String, p:InArg" />
+      </p:RunPowerShellScript.InArgs>
+      <p:RunPowerShellScript.OutArgs>
+        <scg:Dictionary x:TypeArguments="x:String, p:OutArg" />
+      </p:RunPowerShellScript.OutArgs>
+    </p:RunPowerShellScript>
+
+    <!-- Step 3: Verify installation -->
+    <p:RunPowerShellScript genArgEvent="{x:Null}"
+        AssemblyName="PolicyExecutionEngine, Version=2.98.2.2, Culture=neutral, PublicKeyToken=null"
+        DisplayName="Verify Installation"
+        sap:VirtualizedContainerService.HintSize="454,348"
+        Moniker="GENERATE-NEW-GUID"
+        OutPut_64="[RunPowerShellScript_OutPut_64_2]"
+        Result="[RunPowerShellScript_Result_2]"
+        ResultString="[RunPowerShellScript_ResultString_2]"
+        Results_x64="[RunPowerShellScript_Results_x64_2]"
+        RunAsCurrentLoggedOnUser="False"
+        ScriptExecutionMethod="ExecuteDebug"
+        TypeName="RunPowerShellScript"
+        m_bTextLinkChange="False"
+        script="BASE64_VERIFY_SCRIPT">
+      <p:RunPowerShellScript.InArgs>
+        <scg:Dictionary x:TypeArguments="x:String, p:InArg" />
+      </p:RunPowerShellScript.InArgs>
+      <p:RunPowerShellScript.OutArgs>
+        <scg:Dictionary x:TypeArguments="x:String, p:OutArg" />
+      </p:RunPowerShellScript.OutArgs>
+    </p:RunPowerShellScript>
+
+    <!-- Step 4: Mark as deployed -->
+    <p:SetEnvironmentVariable Type_Item="{x:Null}" Type_ItemProp="{x:Null}"
+        UserName="{x:Null}" UserName_DisplayArg="{x:Null}"
+        UserName_Item="{x:Null}" UserName_ItemProp="{x:Null}"
+        Value_Item="{x:Null}" Value_ItemProp="{x:Null}"
+        Variable_Item="{x:Null}" Variable_ItemProp="{x:Null}"
+        AssemblyName="PolicyExecutionEngine, Version=2.98.2.2, Culture=neutral, PublicKeyToken=null"
+        DisplayName="Set Environment Variable"
+        sap:VirtualizedContainerService.HintSize="365,81"
+        MinRequiredVersion="2.10.0.19"
+        Moniker="GENERATE-NEW-GUID"
+        Result="[SetEnvironmentVariable_Result]"
+        ResultString="[SetEnvironmentVariable_ResultString]"
+        RunAsCurrentLoggedOnUser="False"
+        ScriptExecutionMethod="ExecuteDebug"
+        Type="Machine" TypeName="SetEnvironmentVariable"
+        Type_DisplayArg="Machine"
+        Value="Installed" Value_DisplayArg="Installed"
+        Variable="[Software]" Variable_DisplayArg="Global Variables.Software"
+        m_bTextLinkChange="False" />
+
+  </p:SequenceActivity.Activities>
+  <p:SequenceActivity.Variables>
+    <!-- All RunPS and SetEnv variables scoped to this branch -->
+    <Variable x:TypeArguments="x:String" Name="RunPowerShellScript_OutPut_64" />
+    <Variable x:TypeArguments="x:String" Name="RunPowerShellScript_ResultString" />
+    <Variable x:TypeArguments="scg:IEnumerable(x:Object)" Name="RunPowerShellScript_Results_x64" />
+    <Variable x:TypeArguments="x:Double" Name="RunPowerShellScript_Result" />
+    <Variable x:TypeArguments="x:String" Name="RunPowerShellScript_OutPut_64_1" />
+    <Variable x:TypeArguments="x:String" Name="RunPowerShellScript_ResultString_1" />
+    <Variable x:TypeArguments="scg:IEnumerable(x:Object)" Name="RunPowerShellScript_Results_x64_1" />
+    <Variable x:TypeArguments="x:Double" Name="RunPowerShellScript_Result_1" />
+    <Variable x:TypeArguments="x:String" Name="RunPowerShellScript_OutPut_64_2" />
+    <Variable x:TypeArguments="x:String" Name="RunPowerShellScript_ResultString_2" />
+    <Variable x:TypeArguments="scg:IEnumerable(x:Object)" Name="RunPowerShellScript_Results_x64_2" />
+    <Variable x:TypeArguments="x:Double" Name="RunPowerShellScript_Result_2" />
+    <Variable x:TypeArguments="x:Double" Name="SetEnvironmentVariable_Result" />
+    <Variable x:TypeArguments="x:String" Name="SetEnvironmentVariable_ResultString" />
+  </p:SequenceActivity.Variables>
+</p:SequenceActivity>
+```
+
+**Key takeaways:**
+- Multiple RunPowerShellScript instances use `_1`, `_2` suffixes for their variable references
+- All output variables are declared in the SequenceActivity.Variables of the branch they appear in
+- SetEnvironmentVariable at the end marks the deployment as complete for checker policies to read

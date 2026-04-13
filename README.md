@@ -31,10 +31,10 @@ This plugin gives Claude deep knowledge of:
 /nsight-create checker verify Huntress agent is installed
 
 # Read and explain an existing policy
-/nsight-read Examples/Checkers/CoveChecker.amp
+/nsight-read path/to/SomeChecker.amp
 
 # Edit a policy to change parameters
-/nsight-edit Examples/ClientTools/Message.amp
+/nsight-edit path/to/SomePolicy.amp
 
 # Generate a standalone PowerShell script
 /nsight-script check if Windows Defender is running and report status
@@ -55,18 +55,18 @@ claude --plugin-dir /path/to/nable-nsight-scripter
 
 Copy or symlink this directory into your project, then add to your Claude Code settings.
 
-## Example Corpus
+## Reference Documentation
 
-The `Examples/` directory contains 29 production `.amp` files organized by category:
+The plugin includes comprehensive reference docs in `skills/nsight-scripter/references/`:
 
-| Category | Count | Examples |
-|----------|-------|---------|
-| Utilities | 9 | DisablePin, RestartService, GPUpdate, CleanNableFiles |
-| Checkers | 7 | CoveChecker, DnsFilterChecker, SentinelOneChecker |
-| Deployments | 8 | HuntressDeployment, SentinelOneDeployment, DnsFilter |
-| ClientTools | 5 | Message, LanMessage, AddTextFile, GoToAssistant |
+| Document | Description |
+|----------|-------------|
+| `amp-format-spec.md` | Complete .amp XML schema specification |
+| `activity-types.md` | All activity types with XML snippets and composition patterns |
+| `policy-templates.md` | Schema rules and 6 complete ready-to-use templates |
+| `powershell-conventions.md` | PowerShell encoding, templates, and best practices |
 
-Plus `Build.ps1` demonstrating structured PowerShell build conventions.
+An `Examples/` directory with production `.amp` files is included for local development reference.
 
 ## Plugin Structure
 
@@ -87,11 +87,7 @@ nable-nsight-scripter/
 │   ├── nsight-edit.md           # /nsight-edit command
 │   ├── nsight-read.md           # /nsight-read command
 │   └── nsight-script.md        # /nsight-script command
-├── Examples/                    # 29 production .amp files
-│   ├── Checkers/
-│   ├── ClientTools/
-│   ├── Deployments/
-│   └── Utilities/
+├── Examples/                    # Production .amp files (local dev reference, gitignored)
 └── README.md
 ```
 

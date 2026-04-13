@@ -23,16 +23,20 @@ Parse the user's description to determine:
 
 ## For .amp Policy Files
 
-### Step 1: Read Example Files
+### Step 1: Read Reference Documents
 
-Read matching example .amp files from `${CLAUDE_PLUGIN_ROOT}/Examples/` for the determined category:
+Read the reference documents from `${CLAUDE_PLUGIN_ROOT}/skills/nsight-scripter/references/` for the schema and templates:
 
-- **Utility**: Read `Examples/Utilities/DisablePin.amp` (simplest reference)
-- **Checker**: Read `Examples/Checkers/CoveChecker.amp` (canonical checker pattern)
-- **Deployment**: Read `Examples/Deployments/HuntressDeployment2025.amp` (smallest deployment)
-- **ClientTool**: Read `Examples/ClientTools/LanMessage.amp` (parameter mapping example)
+- **amp-format-spec.md** — Complete .amp XML schema with all element details
+- **activity-types.md** — Full reference for all activity types with XML snippets and composition patterns
+- **policy-templates.md** — Schema rules, category patterns, and complete ready-to-use templates per category
+- **powershell-conventions.md** — PowerShell encoding, templates, and best practices
 
-Also read the skill reference for the schema: `${CLAUDE_PLUGIN_ROOT}/skills/nsight-scripter/SKILL.md`
+Read the template matching the determined category from `policy-templates.md`:
+- **Utility**: Template 1 (Simple Utility) or Template 6 (Multi-Step Utility)
+- **Checker**: Template 2 (Checker)
+- **Deployment**: Template 3 (Deployment)
+- **ClientTool**: Template 4 (InputPrompt) or Template 5 (RunPS with InArgs)
 
 ### Step 2: Generate GUIDs
 
